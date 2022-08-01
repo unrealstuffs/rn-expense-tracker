@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import moneyFormatter from '../utils/moneyFormatter'
+import AppText from './ui/AppText'
 
 const Balance = ({ transactions }) => {
 	const amounts = transactions.map(t => t.amount)
@@ -9,8 +10,10 @@ const Balance = ({ transactions }) => {
 
 	return (
 		<View style={styles.block}>
-			<Text style={styles.text}>Your Balance</Text>
-			<Text style={styles.number}>{moneyFormatter(total)}</Text>
+			<AppText style={styles.text}>Your Balance</AppText>
+			<AppText bold style={styles.number}>
+				{moneyFormatter(total)}
+			</AppText>
 		</View>
 	)
 }

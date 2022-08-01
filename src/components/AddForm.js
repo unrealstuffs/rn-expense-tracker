@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, Text, TextInput, View, Alert } from 'react-native'
-import Title from './Title'
+import {
+	Button,
+	StyleSheet,
+	TextInput,
+	View,
+	Alert,
+	Keyboard,
+} from 'react-native'
+import { AntDesign } from '@expo/vector-icons'
+import Title from './ui/Title'
+import AppText from './ui/AppText'
 
 const AddForm = ({ onSubmit }) => {
 	const [title, setTitle] = useState()
@@ -11,6 +20,7 @@ const AddForm = ({ onSubmit }) => {
 			onSubmit(title, amount)
 			setTitle('')
 			setAmount('')
+			Keyboard.dismiss()
 		} else {
 			Alert.alert('Text or amount are empty')
 		}
@@ -20,7 +30,7 @@ const AddForm = ({ onSubmit }) => {
 		<>
 			<Title title='Add new transaction' />
 			<View style={styles.block}>
-				<Text style={styles.label}>Text</Text>
+				<AppText style={styles.label}>Text</AppText>
 				<TextInput
 					style={styles.input}
 					placeholder='Enter text...'
@@ -30,7 +40,7 @@ const AddForm = ({ onSubmit }) => {
 				/>
 			</View>
 			<View style={styles.block}>
-				<Text style={styles.label}>Amount</Text>
+				<AppText style={styles.label}>Amount</AppText>
 				<TextInput
 					style={styles.input}
 					placeholder='Enter amount...'
@@ -41,7 +51,13 @@ const AddForm = ({ onSubmit }) => {
 				/>
 			</View>
 			<View style={styles.button}>
-				<Button title='Add transaction' onPress={pressHandler} />
+				<AntDesign.Button
+					onPress={pressHandler}
+					name='pluscircleo'
+					style={{ justifyContent: 'center' }}
+				>
+					Add transaction
+				</AntDesign.Button>
 			</View>
 		</>
 	)

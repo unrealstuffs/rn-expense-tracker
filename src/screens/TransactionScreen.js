@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View, Dimensions } from 'react-native'
+import { FontAwesome, AntDesign } from '@expo/vector-icons'
 import EditModal from '../components/EditModal'
+import AppButton from '../components/ui/AppButton'
+import AppText from '../components/ui/AppText'
 import Card from '../components/ui/Card'
 import { THEME } from '../theme'
 
@@ -23,26 +26,30 @@ const TransactionScreen = ({ goBack, transaction, onRemove, onSave }) => {
 			/>
 			<Card style={styles.card}>
 				<View>
-					<Text style={styles.title}>{transaction.title}</Text>
-					<Text style={styles.amount}>{transaction.amount}</Text>
+					<AppText style={styles.title}>{transaction.title}</AppText>
+					<AppText bold style={styles.amount}>
+						{transaction.amount}
+					</AppText>
 				</View>
-				<Button title='Edit' onPress={() => setModal(true)} />
+
+				<AppButton onPress={() => setModal(true)}>
+					<FontAwesome name='edit' size={20} />
+				</AppButton>
 			</Card>
 
 			<View style={styles.buttons}>
 				<View style={styles.button}>
-					<Button
-						title='Go back'
-						color={THEME.GREY_COLOR}
-						onPress={goBack}
-					/>
+					<AppButton color={THEME.GREY_COLOR} onPress={goBack}>
+						<AntDesign name='back' size={20} color='#fff' />
+					</AppButton>
 				</View>
 				<View style={styles.button}>
-					<Button
-						title='Delete'
+					<AppButton
 						color={THEME.DANGER_COLOR}
 						onPress={() => onRemove(transaction.id)}
-					/>
+					>
+						<FontAwesome name='remove' size={20} color='#fff' />
+					</AppButton>
 				</View>
 			</View>
 		</>
@@ -55,7 +62,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	button: {
-		width: '49%',
+		width: Dimensions.get('window').width / 2.5,
 	},
 	title: {
 		fontSize: 16,

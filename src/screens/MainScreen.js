@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from 'react-native'
 import AddForm from '../components/AddForm'
 import Balance from '../components/Balance'
 import IncomeExpenses from '../components/IncomeExpenses'
-import Title from '../components/Title'
+import Title from '../components/ui/Title'
 import Transaction from '../components/Transaction'
 
 const MainScreen = ({

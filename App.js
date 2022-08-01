@@ -1,12 +1,33 @@
 import { useState } from 'react'
 import { Alert, ScrollView, StyleSheet, View } from 'react-native'
+import * as Font from 'expo-font'
+
 import Navbar from './src/components/Navbar'
 import MainScreen from './src/screens/MainScreen'
 import TransactionScreen from './src/screens/TransactionScreen'
+import AppLoading from 'expo-app-loading'
+
+const loadApplication = async () => {
+	await Font.loadAsync({
+		'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+		'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
+	})
+}
 
 export default function App() {
+	const [isReady, setIsReady] = useState(false)
 	const [transactionId, setTransactionId] = useState(null)
 	const [transactions, setTransactions] = useState([])
+
+	if (!isReady) {
+		return (
+			<AppLoading
+				startAsync={loadApplication}
+				onError={err => console.log(err)}
+				onFinish={() => setIsReady(true)}
+			/>
+		)
+	}
 
 	const addTransaction = (title, amount) => {
 		setTransactions(prev => [

@@ -1,8 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import AppText from '../ui/AppText'
 
 const Title = ({ title }) => {
-	return <Text style={styles.title}>{title}</Text>
+	return (
+		<AppText bold style={styles.title}>
+			{title}
+		</AppText>
+	)
 }
 
 const styles = StyleSheet.create({
@@ -10,7 +15,6 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderStyle: 'solid',
 		borderColor: '#bbb',
-		fontWeight: '700',
 		fontSize: 18,
 		paddingBottom: 10,
 		marginTop: 40,

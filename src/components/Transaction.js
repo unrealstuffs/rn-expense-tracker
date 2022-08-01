@@ -1,5 +1,6 @@
 import React from 'react'
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import AppText from './ui/AppText'
 
 const Transaction = ({ transaction, onRemove, onOpen }) => {
 	return (
@@ -14,8 +15,10 @@ const Transaction = ({ transaction, onRemove, onOpen }) => {
 					transaction.amount > 0 ? styles.plus : styles.minus,
 				]}
 			>
-				<Text style={styles.text}>{transaction.title}</Text>
-				<Text style={styles.number}>{transaction.amount}</Text>
+				<AppText style={styles.text}>{transaction.title}</AppText>
+				<AppText bold style={styles.number}>
+					{transaction.amount}
+				</AppText>
 			</View>
 		</TouchableOpacity>
 	)
@@ -43,7 +46,6 @@ const styles = StyleSheet.create({
 		borderColor: '#c0392b',
 	},
 	number: {
-		fontWeight: '700',
 		fontSize: 16,
 	},
 })
