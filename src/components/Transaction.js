@@ -1,12 +1,23 @@
 import React from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 
-const Transaction = ({ transaction }) => {
+const Transaction = ({ transaction, onRemove, onOpen }) => {
 	return (
-		<View style={[styles.item, styles.plus]}>
-			<Text style={styles.text}>{transaction.title}</Text>
-			<Text style={styles.number}>{transaction.amount}</Text>
-		</View>
+		<TouchableOpacity
+			activeOpacity={0.7}
+			onPress={() => onOpen(transaction.id)}
+			onLongPress={() => onRemove(transaction.id)}
+		>
+			<View
+				style={[
+					styles.item,
+					transaction.amount > 0 ? styles.plus : styles.minus,
+				]}
+			>
+				<Text style={styles.text}>{transaction.title}</Text>
+				<Text style={styles.number}>{transaction.amount}</Text>
+			</View>
+		</TouchableOpacity>
 	)
 }
 

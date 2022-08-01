@@ -1,11 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import moneyFormatter from '../utils/moneyFormatter'
 
-const Balance = () => {
+const Balance = ({ transactions }) => {
+	const amounts = transactions.map(t => t.amount)
+
+	const total = amounts.reduce((acc, item) => (acc += item), 0)
+
 	return (
 		<View style={styles.block}>
 			<Text style={styles.text}>Your Balance</Text>
-			<Text style={styles.number}>₽260.00</Text>
+			<Text style={styles.number}>{moneyFormatter(total)}</Text>
 		</View>
 	)
 }

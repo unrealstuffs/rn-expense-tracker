@@ -1,7 +1,19 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import moneyFormatter from '../utils/moneyFormatter'
 
-const IncomeExpenses = () => {
+const IncomeExpenses = ({ transactions }) => {
+	const amounts = transactions.map(transaction => transaction.amount)
+
+	const income = amounts
+		.filter(item => item > 0)
+		.reduce((acc, item) => (acc += item), 0)
+
+	const expense =
+		amounts
+			.filter(item => item < 0)
+			.reduce((acc, item) => (acc += item), 0) * -1
+
 	return (
 		<View style={styles.incExp}>
 			<View
@@ -15,11 +27,15 @@ const IncomeExpenses = () => {
 				]}
 			>
 				<Text style={styles.text}>Income</Text>
-				<Text style={[styles.money, styles.plus]}>₽500</Text>
+				<Text style={[styles.money, styles.plus]}>
+					{moneyFormatter(income)}
+				</Text>
 			</View>
 			<View style={styles.block}>
 				<Text style={styles.text}>Expense</Text>
-				<Text style={[styles.money, styles.minus]}>₽240</Text>
+				<Text style={[styles.money, styles.minus]}>
+					{moneyFormatter(expense)}
+				</Text>
 			</View>
 		</View>
 	)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, View, Alert } from 'react-native'
 import Title from './Title'
 
 const AddForm = ({ onSubmit }) => {
@@ -7,7 +7,13 @@ const AddForm = ({ onSubmit }) => {
 	const [amount, setAmount] = useState()
 
 	const pressHandler = () => {
-		onSubmit(title, amount)
+		if (title.trim() && amount) {
+			onSubmit(title, amount)
+			setTitle('')
+			setAmount('')
+		} else {
+			Alert.alert('Text or amount are empty')
+		}
 	}
 
 	return (
@@ -18,7 +24,9 @@ const AddForm = ({ onSubmit }) => {
 				<TextInput
 					style={styles.input}
 					placeholder='Enter text...'
-					onChangeText={text => setTitle(text)}
+					value={title}
+					onChangeText={setTitle}
+					autoCorrect={false}
 				/>
 			</View>
 			<View style={styles.block}>
@@ -26,10 +34,15 @@ const AddForm = ({ onSubmit }) => {
 				<TextInput
 					style={styles.input}
 					placeholder='Enter amount...'
-					onChangeText={text => setAmount(text)}
+					value={amount}
+					onChangeText={setAmount}
+					autoCorrect={false}
+					keyboardType='numeric'
 				/>
 			</View>
-			<Button title='Add transaction' onPress={pressHandler} />
+			<View style={styles.button}>
+				<Button title='Add transaction' onPress={pressHandler} />
+			</View>
 		</>
 	)
 }
@@ -48,6 +61,9 @@ const styles = StyleSheet.create({
 		borderRadius: 2,
 		fontSize: 16,
 		padding: 10,
+	},
+	button: {
+		marginTop: 10,
 	},
 })
 
