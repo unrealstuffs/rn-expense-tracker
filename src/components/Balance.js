@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import moneyFormatter from '../utils/moneyFormatter'
+import { TransactionContext } from '../context/transactions/TransactionState'
 import AppText from './ui/AppText'
 
-const Balance = ({ transactions }) => {
+const Balance = () => {
+	const { transactions } = useContext(TransactionContext)
 	const amounts = transactions.map(t => t.amount)
 
 	const total = amounts.reduce((acc, item) => (acc += item), 0)

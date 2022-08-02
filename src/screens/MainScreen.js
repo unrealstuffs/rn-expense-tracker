@@ -1,24 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
 import AddForm from '../components/AddForm'
 import Balance from '../components/Balance'
 import IncomeExpenses from '../components/IncomeExpenses'
 import Title from '../components/ui/Title'
 import Transaction from '../components/Transaction'
+import { TransactionContext } from '../context/transactions/TransactionState'
 
-const MainScreen = ({
-	addTransaction,
-	transactions,
-	removeTransaction,
-	openTransaction,
-}) => {
+const MainScreen = () => {
+	const { transactions } = useContext(TransactionContext)
+
 	let content = transactions.map(transaction => (
-		<Transaction
-			key={transaction.id}
-			transaction={transaction}
-			onRemove={removeTransaction}
-			onOpen={openTransaction}
-		/>
+		<Transaction key={transaction.id} transaction={transaction} />
 	))
 
 	if (!transactions.length) {
@@ -34,9 +27,9 @@ const MainScreen = ({
 
 	return (
 		<>
-			<Balance transactions={transactions} />
-			<IncomeExpenses transactions={transactions} />
-			<AddForm onSubmit={addTransaction} />
+			<Balance />
+			<IncomeExpenses />
+			<AddForm />
 			<Title title='History' />
 			{content}
 		</>

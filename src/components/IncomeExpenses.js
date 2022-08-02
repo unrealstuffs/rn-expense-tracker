@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
+import { TransactionContext } from '../context/transactions/TransactionState'
 import moneyFormatter from '../utils/moneyFormatter'
 import AppText from './ui/AppText'
 
-const IncomeExpenses = ({ transactions }) => {
+const IncomeExpenses = () => {
+	const { transactions } = useContext(TransactionContext)
 	const amounts = transactions.map(transaction => transaction.amount)
 
 	const income = amounts

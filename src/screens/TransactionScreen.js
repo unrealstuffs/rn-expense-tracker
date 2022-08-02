@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, View, Dimensions } from 'react-native'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
 import EditModal from '../components/EditModal'
@@ -6,12 +6,19 @@ import AppButton from '../components/ui/AppButton'
 import AppText from '../components/ui/AppText'
 import Card from '../components/ui/Card'
 import { THEME } from '../theme'
+import { ScreenContext } from '../context/screens/ScreenState'
+import { TransactionContext } from '../context/transactions/TransactionState'
 
-const TransactionScreen = ({ goBack, transaction, onRemove, onSave }) => {
+const TransactionScreen = () => {
+	const { changeScreen, transactionId } = useContext(ScreenContext)
+	const { transactions, removeTransaction, updateTransaction } =
+		useContext(TransactionContext)
 	const [modal, setModal] = useState(false)
 
-	const saveHandler = (title, amount) => {
-		onSave(transaction.id, title, amount)
+	const transaction = transactions.find(t => t.id === transactionId)
+
+	const saveHandler = updatedTransaction => {
+		updateTransaction({ id: transaction.id, ...updatedTransaction })
 		setModal(false)
 	}
 
@@ -39,14 +46,17 @@ const TransactionScreen = ({ goBack, transaction, onRemove, onSave }) => {
 
 			<View style={styles.buttons}>
 				<View style={styles.button}>
-					<AppButton color={THEME.GREY_COLOR} onPress={goBack}>
+					<AppButton
+						color={THEME.GREY_COLOR}
+						onPress={() => changeScreen(null)}
+					>
 						<AntDesign name='back' size={20} color='#fff' />
 					</AppButton>
 				</View>
 				<View style={styles.button}>
 					<AppButton
 						color={THEME.DANGER_COLOR}
-						onPress={() => onRemove(transaction.id)}
+						onPress={() => removeTransaction(transaction.id)}
 					>
 						<FontAwesome name='remove' size={20} color='#fff' />
 					</AppButton>

@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { ScreenContext } from '../context/screens/ScreenState'
+import { TransactionContext } from '../context/transactions/TransactionState'
 import AppText from './ui/AppText'
 
-const Transaction = ({ transaction, onRemove, onOpen }) => {
+const Transaction = ({ transaction }) => {
+	const { changeScreen, transactionId } = useContext(ScreenContext)
+	const { removeTransaction } = useContext(TransactionContext)
+
 	return (
 		<TouchableOpacity
 			activeOpacity={0.7}
-			onPress={() => onOpen(transaction.id)}
-			onLongPress={() => onRemove(transaction.id)}
+			onPress={() => {
+				changeScreen(transaction.id)
+			}}
+			onLongPress={() => {
+				removeTransaction(transaction.id)
+			}}
 		>
 			<View
 				style={[

@@ -1,23 +1,22 @@
-import React, { useState } from 'react'
-import {
-	Button,
-	StyleSheet,
-	TextInput,
-	View,
-	Alert,
-	Keyboard,
-} from 'react-native'
+import React, { useContext, useState } from 'react'
+import { StyleSheet, TextInput, View, Alert, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import Title from './ui/Title'
 import AppText from './ui/AppText'
+import { TransactionContext } from '../context/transactions/TransactionState'
 
-const AddForm = ({ onSubmit }) => {
+const AddForm = () => {
+	const { addTransaction } = useContext(TransactionContext)
 	const [title, setTitle] = useState()
 	const [amount, setAmount] = useState()
 
 	const pressHandler = () => {
 		if (title.trim() && amount) {
-			onSubmit(title, amount)
+			addTransaction({
+				id: Math.floor(Math.random() * 10000000),
+				title,
+				amount: +amount,
+			})
 			setTitle('')
 			setAmount('')
 			Keyboard.dismiss()

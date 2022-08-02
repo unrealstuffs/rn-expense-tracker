@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, StyleSheet, TextInput, View } from 'react-native'
+import { Alert, Modal, StyleSheet, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { THEME } from '../theme'
 import AppButton from './ui/AppButton'
@@ -16,7 +16,13 @@ const EditModal = ({ visible, onCancel, title, amount, onSave }) => {
 			Alert.alert('Error!', `Amount not may be empty`)
 			return
 		}
-		onSave(localTitle, localAmount)
+		onSave({ title: localTitle, amount: localAmount })
+	}
+
+	const cancelHandler = () => {
+		setLocalTitle(title)
+		setLocalAmount(amount.toString())
+		onCancel()
 	}
 
 	return (
@@ -38,7 +44,10 @@ const EditModal = ({ visible, onCancel, title, amount, onSave }) => {
 					keyboardType='numeric'
 				/>
 				<View style={styles.buttons}>
-					<AppButton onPress={onCancel} color={THEME.DANGER_COLOR}>
+					<AppButton
+						onPress={cancelHandler}
+						color={THEME.DANGER_COLOR}
+					>
 						Cancel
 					</AppButton>
 					<AppButton onPress={saveHandler}>Save</AppButton>
