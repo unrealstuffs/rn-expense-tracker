@@ -17,8 +17,8 @@ const TransactionScreen = () => {
 
 	const transaction = transactions.find(t => t.id === transactionId)
 
-	const saveHandler = updatedTransaction => {
-		updateTransaction({ id: transaction.id, ...updatedTransaction })
+	const saveHandler = async updatedTransaction => {
+		await updateTransaction({ id: transaction.id, ...updatedTransaction })
 		setModal(false)
 	}
 

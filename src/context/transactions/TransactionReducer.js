@@ -23,7 +23,31 @@ export default (state, action) => {
 					return transaction
 				}),
 			}
-
+		case 'SHOW_LOADER':
+			return {
+				...state,
+				loading: true,
+			}
+		case 'HIDE_LOADER':
+			return {
+				...state,
+				loading: false,
+			}
+		case 'HIDE_ERROR':
+			return {
+				...state,
+				error: null,
+			}
+		case 'SHOW_ERROR':
+			return {
+				...state,
+				error: action.payload,
+			}
+		case 'FETCH_TRANSACTIONS':
+			return {
+				...state,
+				transactions: action.payload,
+			}
 		default:
 			return state
 	}

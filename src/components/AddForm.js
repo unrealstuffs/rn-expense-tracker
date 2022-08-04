@@ -13,7 +13,6 @@ const AddForm = () => {
 	const pressHandler = () => {
 		if (title.trim() && amount) {
 			addTransaction({
-				id: Math.floor(Math.random() * 10000000),
 				title,
 				amount: +amount,
 			})

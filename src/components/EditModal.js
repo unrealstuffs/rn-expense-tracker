@@ -16,7 +16,7 @@ const EditModal = ({ visible, onCancel, title, amount, onSave }) => {
 			Alert.alert('Error!', `Amount not may be empty`)
 			return
 		}
-		onSave({ title: localTitle, amount: localAmount })
+		onSave({ title: localTitle, amount: +localAmount })
 	}
 
 	const cancelHandler = () => {
